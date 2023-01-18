@@ -160,7 +160,7 @@ private:
 
 class DFRobot_MICS_I2C:public DFRobot_MICS{
 public:
-  DFRobot_MICS_I2C(TwoWire *pWire=&Wire ,uint8_t addr = MICS_ADDRESS_3);
+  DFRobot_MICS_I2C(TwoWire *pWire=&Wire ,uint8_t addr = MICS_ADDRESS_0);
   bool begin(void);
 protected:
   virtual void writeData(uint8_t reg ,uint8_t *data ,uint8_t len);
