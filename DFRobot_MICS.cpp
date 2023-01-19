@@ -191,29 +191,24 @@ float DFRobot_MICS::getGasData(uint8_t type)
   Serial.println(oxData[0]);
   Serial.println(redData[0]);
   Serial.println(init_r0_ox);
+  Serial.println(init_r0_red);
   switch(type){
     case 1:
-      Serial.println(type);
       return getCarbonMonoxide(RS_R0_RED_data);
       break;
     case 2:
-      Serial.println(type); 
       return getMethane(RS_R0_RED_data);
       break;
     case 3:
-      Serial.println(type);
       return getEthanol(RS_R0_RED_data);
       break;
     case 6:
-      Serial.println(type);
       return getHydrogen(RS_R0_RED_data);
       break;
     case 8:
-      Serial.println(type);
       return getAmmonia(RS_R0_RED_data);
       break;
     case 10:
-      Serial.println(type);
       return getNitrogenDioxide(RS_R0_OX_data);
       break;
     default:
