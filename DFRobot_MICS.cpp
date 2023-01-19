@@ -10,6 +10,18 @@
  */
 #include "DFRobot_MICS.h"
 
+
+#define           CO                        0x01          ///< Carbon Monoxide
+#define           CH4                       0x02          ///< Methane
+#define           C2H5OH                    0x03          ///< Ethanol
+#define           C3H8                      0x04          ///< Propane
+#define           C4H10                     0x05          ///< Iso Butane
+#define           H2                        0x06          ///< Hydrogen
+#define           H2S                       0x07          ///< Hydrothion
+#define           NH3                       0x08          ///< Ammonia
+#define           NO                        0x09          ///< Nitric Oxide
+#define           NO2                       0x0A          ///< Nitrogen Dioxide
+
 DFRobot_MICS::DFRobot_MICS(){}
 DFRobot_MICS::~DFRobot_MICS(){}
 
