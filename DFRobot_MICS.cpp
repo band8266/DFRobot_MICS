@@ -292,13 +292,13 @@ float DFRobot_MICS::getAmmonia(float data)
 //  Serial.println(data);
 //  if(data > 0.8)
 //    return 0.0;
-//  float ammonia = (0.8 - data) / 0.0015;
-  if(ammonia < 1.0) 
-    return 0.0;
-  if(ammonia > 500.0) 
-    return 500.0;
+  float ammonia = (0.8 - data) / 0.0015;
+//  if(ammonia < 1.0) 
+ //   return 0.0;
+//  if(ammonia > 500.0) 
+//    return 500.0;
   return ammonia;
-  Serial.println(data);
+//  Serial.println(data);
 }
 
 bool DFRobot_MICS::existIsoButane(float data)
