@@ -183,18 +183,6 @@ float DFRobot_MICS::getGasData(uint8_t type)
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
   getSensorData(oxData, redData, powerData);
-  for(int i = 0; i < 2; i++)
-  {
-     Serial.println(oxData[i]);
-  }  
-  for(int i = 0; i < 2; i++)
-  {
-     Serial.println(redData[i]);
-  }
-  for(int i = 0; i < 2; i++)
-  {
-     Serial.println(powerData[i]);
-  }
   float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
   float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
   switch(type){
@@ -232,6 +220,7 @@ float DFRobot_MICS::getCarbonMonoxide(float data)
   if(co < 1.0) 
     return 0.0;
   return co;
+  Serial.println(data);
 }
 
 float DFRobot_MICS::getEthanol(float data)
@@ -244,6 +233,7 @@ float DFRobot_MICS::getEthanol(float data)
   if(ethanol > 500.0) 
     return 500.0;
   return ethanol;
+  Serial.println(data);
 }
 
 float DFRobot_MICS::getMethane(float data)
@@ -254,6 +244,7 @@ float DFRobot_MICS::getMethane(float data)
   if(methane < 1000.0) methane = 0.0;
   if(methane > 25000.0) methane = 25000.0;
   return methane;
+  Serial.println(data);
 }
 
 float DFRobot_MICS::getNitrogenDioxide(float data)
@@ -265,6 +256,7 @@ float DFRobot_MICS::getNitrogenDioxide(float data)
   if(nitrogendioxide > 10.0)
     return 10.0;
   return nitrogendioxide;
+  Serial.println(data);
 }
 
 float DFRobot_MICS::getHydrogen(float data)
@@ -277,6 +269,7 @@ float DFRobot_MICS::getHydrogen(float data)
   if(hydrogen > 1000.0) 
     return 1000.0;
   return hydrogen;
+  Serial.println(data);
 }
 
 float DFRobot_MICS::getAmmonia(float data)
@@ -289,6 +282,7 @@ float DFRobot_MICS::getAmmonia(float data)
   if(ammonia > 500.0) 
     return 500.0;
   return ammonia;
+  Serial.println(data);
 }
 
 bool DFRobot_MICS::existIsoButane(float data)
