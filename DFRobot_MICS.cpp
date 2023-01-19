@@ -40,6 +40,8 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
   Serial.println( __r0_red );
   Serial.println( __r0_ox );
   Serial.println( powerData[0] );
+  Serial.println( oxData[0] );
+  Serial.println( redData[0] );
   return true;
 }
 
@@ -183,6 +185,8 @@ float DFRobot_MICS::getGasData(uint8_t type)
   getSensorData(oxData, redData, powerData);
   float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
   float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
+  Serial.println( RS_R0_OX_data );
+  Serial.println( RS_R0_RED_data );
   switch(type){
     case CO:
       return getCarbonMonoxide(RS_R0_RED_data);
