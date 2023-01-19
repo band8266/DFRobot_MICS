@@ -183,10 +183,11 @@ float DFRobot_MICS::getGasData(uint8_t type)
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
   getSensorData(oxData, redData, powerData);
+  Serial.println( oxData );
+  Serial.println( redData );
+  Serial.println( powerData );
   float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
   float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
-  Serial.println( RS_R0_OX_data );
-  Serial.println( RS_R0_RED_data );
   switch(type){
     case CO:
       return getCarbonMonoxide(RS_R0_RED_data);
