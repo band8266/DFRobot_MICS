@@ -37,10 +37,10 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
   if(getSensorData(oxData, redData, powerData) == ERROR){
     return false;
   }
-  __r0_ox  = powerData[0] - oxData[0];
-  __r0_red = powerData[0] - redData[0];
-  Serial.println( __r0_red );
-  Serial.println( __r0_ox );
+  init_r0_ox  = powerData[0] - oxData[0];
+  init_r0_red = powerData[0] - redData[0];
+  Serial.println( init_r0_red );
+  Serial.println( init_r0_ox );
   Serial.println( powerData[0] );
   Serial.println( oxData[0] );
   Serial.println( redData[0] );
@@ -99,8 +99,8 @@ int8_t DFRobot_MICS::getGasExist(uint8_t gas)
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
   getSensorData(oxData, redData, powerData);
-  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
-  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
+  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / init_r0_red;
+  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / init_r0_ox;
   switch(gas)
   {
     case C3H8:
@@ -185,8 +185,8 @@ float DFRobot_MICS::getGasData(uint8_t type)
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
   getSensorData(oxData, redData, powerData);
-  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
-  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
+  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / init_r0_red;
+  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / init_r0_ox;
   switch(type){
     case 1:
       Serial.println(type);
