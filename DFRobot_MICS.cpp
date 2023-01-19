@@ -178,43 +178,38 @@ int8_t DFRobot_MICS::getGasExist(uint8_t gas)
       break;
   }
 }
-#define           CO                        0x01          ///< Carbon Monoxide
-#define           CH4                       0x02          ///< Methane
-#define           C2H5OH                    0x03          ///< Ethanol
-#define           C3H8                      0x04          ///< Propane
-#define           C4H10                     0x05          ///< Iso Butane
-#define           H2                        0x06          ///< Hydrogen
-#define           H2S                       0x07          ///< Hydrothion
-#define           NH3                       0x08          ///< Ammonia
-#define           NO                        0x09          ///< Nitric Oxide
-#define           NO2                       0x0A          ///< Nitrogen Dioxide
 
 float DFRobot_MICS::getGasData(uint8_t type)
 {
   uint16_t oxData[1]    = {0x00};
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
-  Serial.println(type);
   getSensorData(oxData, redData, powerData);
   float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
   float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
   switch(type){
     case 1:
+      Serial.println(type);
       return getCarbonMonoxide(RS_R0_RED_data);
       break;
     case 2:
+      Serial.println(type); 
       return getMethane(RS_R0_RED_data);
       break;
     case 3:
+      Serial.println(type);
       return getEthanol(RS_R0_RED_data);
       break;
     case 6:
+      Serial.println(type);
       return getHydrogen(RS_R0_RED_data);
       break;
     case 8:
+      Serial.println(type);
       return getAmmonia(RS_R0_RED_data);
       break;
     case 10:
+      Serial.println(type);
       return getNitrogenDioxide(RS_R0_OX_data);
       break;
     default:
@@ -238,6 +233,7 @@ float DFRobot_MICS::getCarbonMonoxide(float data)
 
 float DFRobot_MICS::getEthanol(float data)
 {
+  Serial.println(data);
   if(data > 0.306)
     return 0.0;
   float ethanol = (0.306 - data) / 0.00057;
@@ -246,7 +242,7 @@ float DFRobot_MICS::getEthanol(float data)
   if(ethanol > 500.0) 
     return 500.0;
   return ethanol;
-  Serial.println(data);
+
 }
 
 float DFRobot_MICS::getMethane(float data)
