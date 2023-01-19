@@ -220,6 +220,7 @@ float DFRobot_MICS::getGasData(uint8_t type)
 
 float DFRobot_MICS::getCarbonMonoxide(float data)
 {
+  Serial.println(data);
   if(data > 0.425)
     return 0.0;
   float co = (0.425 - data) / 0.000405;
@@ -247,21 +248,20 @@ float DFRobot_MICS::getEthanol(float data)
 
 float DFRobot_MICS::getMethane(float data)
 {
+  Serial.println(data);
   if(data > 0.786)
     return 0.0;
   float methane = (0.786 - data) / 0.000023;
   if(methane < 1000.0) methane = 0.0;
   if(methane > 25000.0) methane = 25000.0;
-  Serial.println(methane);
   return methane;
-  Serial.println(data);
 }
 
 float DFRobot_MICS::getNitrogenDioxide(float data)
 {
+  Serial.println(data);
   if(data < 1.1) return 0;
   float nitrogendioxide = (data - 0.045) / 6.13;
-  Serial.println(data);
   Serial.println(nitrogendioxide);
   if(nitrogendioxide < 0.1)
     return 0.0;
@@ -272,6 +272,7 @@ float DFRobot_MICS::getNitrogenDioxide(float data)
 
 float DFRobot_MICS::getHydrogen(float data)
 {
+  Serial.println(data);
   if(data > 0.279)
     return 0.0;
   float hydrogen = (0.279 - data) / 0.00026;
@@ -285,6 +286,7 @@ float DFRobot_MICS::getHydrogen(float data)
 
 float DFRobot_MICS::getAmmonia(float data)
 {
+  Serial.println(data);
   if(data > 0.8)
     return 0.0;
   float ammonia = (0.8 - data) / 0.0015;
