@@ -133,10 +133,10 @@ public:
   uint8_t getPowerState(void);
 
 private:
-  int16_t  __r0_ox   = 0;
-  int16_t  __r0_red  = 0;
-  uint32_t __nowTime = 0;
-  uint8_t  __flag    = 0;
+  int16_t  init_r0_ox   = 0;
+  int16_t  init_r0_ox  = 0;
+  uint32_t init_nowTime = 0;
+  uint8_t  init_flag    = 0;
   int16_t  getSensorData(uint16_t *oxData ,uint16_t *redData ,uint16_t *powerData);
   float    getCarbonMonoxide(float data);
   float    getMethane(float data);
