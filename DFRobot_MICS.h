@@ -134,7 +134,7 @@ public:
 
 private:
   int16_t  init_r0_ox   = 0;
-  int16_t  init_r0_ox  = 0;
+  int16_t  init_r0_red  = 0;
   uint32_t init_nowTime = 0;
   uint8_t  init_flag    = 0;
   int16_t  getSensorData(uint16_t *oxData ,uint16_t *redData ,uint16_t *powerData);
