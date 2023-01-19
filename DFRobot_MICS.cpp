@@ -263,7 +263,7 @@ float DFRobot_MICS::getMethane(float data)
 float DFRobot_MICS::getNitrogenDioxide(float data)
 {
   Serial.println(data);
-  if(data < 1.1) return 0;
+  if(data < 0.1) return 0;
   float nitrogendioxide = (data - 0.045) / 6.13;
   Serial.println(nitrogendioxide);
   if(nitrogendioxide < 0.1)
