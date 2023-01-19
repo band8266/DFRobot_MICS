@@ -252,6 +252,7 @@ float DFRobot_MICS::getMethane(float data)
   float methane = (0.786 - data) / 0.000023;
   if(methane < 1000.0) methane = 0.0;
   if(methane > 25000.0) methane = 25000.0;
+  Serial.println(methane);
   return methane;
   Serial.println(data);
 }
