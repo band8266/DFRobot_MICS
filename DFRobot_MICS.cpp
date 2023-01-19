@@ -37,8 +37,8 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
   if(getSensorData(oxData, redData, powerData) == ERROR){
     return false;
   }
-  init_r0_ox  = powerData[0] - oxData[0];
-  init_r0_red = powerData[0] - redData[0];
+  init_r0_ox  = (powerData[0] - oxData[0]) - 100;
+  init_r0_red = (powerData[0] - redData[0]) - 100;
   Serial.println( init_r0_red );
   Serial.println( init_r0_ox );
   Serial.println( powerData[0] );
