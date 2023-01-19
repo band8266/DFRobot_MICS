@@ -11,16 +11,6 @@
 #include "DFRobot_MICS.h"
 
 
-#define           CO                        0x01          ///< Carbon Monoxide
-#define           CH4                       0x02          ///< Methane
-#define           C2H5OH                    0x03          ///< Ethanol
-#define           C3H8                      0x04          ///< Propane
-#define           C4H10                     0x05          ///< Iso Butane
-#define           H2                        0x06          ///< Hydrogen
-#define           H2S                       0x07          ///< Hydrothion
-#define           NH3                       0x08          ///< Ammonia
-#define           NO                        0x09          ///< Nitric Oxide
-#define           NO2                       0x0A          ///< Nitrogen Dioxide
 
 DFRobot_MICS::DFRobot_MICS(){}
 DFRobot_MICS::~DFRobot_MICS(){}
@@ -188,6 +178,16 @@ int8_t DFRobot_MICS::getGasExist(uint8_t gas)
       break;
   }
 }
+#define           CO                        0x01          ///< Carbon Monoxide
+#define           CH4                       0x02          ///< Methane
+#define           C2H5OH                    0x03          ///< Ethanol
+#define           C3H8                      0x04          ///< Propane
+#define           C4H10                     0x05          ///< Iso Butane
+#define           H2                        0x06          ///< Hydrogen
+#define           H2S                       0x07          ///< Hydrothion
+#define           NH3                       0x08          ///< Ammonia
+#define           NO                        0x09          ///< Nitric Oxide
+#define           NO2                       0x0A          ///< Nitrogen Dioxide
 
 float DFRobot_MICS::getGasData(uint8_t type)
 {
@@ -199,22 +199,22 @@ float DFRobot_MICS::getGasData(uint8_t type)
   float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
   float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
   switch(type){
-    case CO:
+    case 1:
       return getCarbonMonoxide(RS_R0_RED_data);
       break;
-    case CH4:
+    case 2:
       return getMethane(RS_R0_RED_data);
       break;
-    case C2H5OH:
+    case 3:
       return getEthanol(RS_R0_RED_data);
       break;
-    case H2:
+    case 6:
       return getHydrogen(RS_R0_RED_data);
       break;
-    case NH3:
+    case 8:
       return getAmmonia(RS_R0_RED_data);
       break;
-    case NO2:
+    case 10:
       return getNitrogenDioxide(RS_R0_OX_data);
       break;
     default:
