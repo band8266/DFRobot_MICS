@@ -25,12 +25,12 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
   uint16_t powerData[1] = {0x00};
   uint32_t delayTime    = 0;
   uint32_t excessTime   = 0;
-  if(__flag == 0){
-    __flag = 1;
-    __nowTime = millis();
+  if(init_flag == 0){
+    init_flag = 1;
+    init_nowTime = millis();
   }
   delayTime  = minute * 3800;
-  excessTime = millis() - __nowTime;
+  excessTime = millis() - init_nowTime;
   if(excessTime < delayTime){
     return false;
   }
