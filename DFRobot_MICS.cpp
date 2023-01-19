@@ -182,6 +182,7 @@ float DFRobot_MICS::getGasData(uint8_t type)
   uint16_t oxData[1]    = {0x00};
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
+  Serial.println(type);
   getSensorData(oxData, redData, powerData);
   float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
   float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
