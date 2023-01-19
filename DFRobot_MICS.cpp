@@ -27,7 +27,7 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
     __flag = 1;
     __nowTime = millis();
   }
-  delayTime  = minute * 6000;
+  delayTime  = minute * 5000;
   excessTime = millis() - __nowTime;
   if(excessTime < delayTime){
     return false;
