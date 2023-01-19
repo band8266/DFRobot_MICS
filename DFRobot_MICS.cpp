@@ -36,6 +36,8 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
     return false;
   }
   __r0_ox  = powerData[0] - oxData[0];
+  Serial.println( __r0_red );
+  Serial.println( __r0_ox );
   __r0_red = powerData[0] - redData[0];
   return true;
 }
