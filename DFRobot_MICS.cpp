@@ -402,7 +402,7 @@ int16_t DFRobot_MICS::getSensorData(uint16_t *oxData, uint16_t *redData, uint16_
   powerData[0] = (((uint16_t)recv_data[4] << 8) + (uint16_t)recv_data[5]);
   int arraySize = sizeof(recv_data) / sizeof(recv_data[0]);
   for (int i = 0; i < arraySize; i++) {
-    ESP_LOGD("rawdata", recv_data[i]);
+    ESP_LOGE("rawdata", recv_data[i]);
   }
   return 0;
 }
