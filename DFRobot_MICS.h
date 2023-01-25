@@ -133,10 +133,10 @@ public:
   uint8_t getPowerState(void);
 
 private:
-  int16_t  init_r0_ox   = 0;
-  int16_t  init_r0_red  = 0;
-  uint32_t init_nowTime = 0;
-  uint8_t  init_flag    = 0;
+  int16_t  __r0_ox   = 0;
+  int16_t  __r0_red  = 0;
+  uint32_t __nowTime = 0;
+  uint8_t  __flag    = 0;
   int16_t  getSensorData(uint16_t *oxData ,uint16_t *redData ,uint16_t *powerData);
   float    getCarbonMonoxide(float data);
   float    getMethane(float data);
@@ -160,7 +160,7 @@ private:
 
 class DFRobot_MICS_I2C:public DFRobot_MICS{
 public:
-  DFRobot_MICS_I2C(TwoWire *pWire=&Wire ,uint8_t addr = MICS_ADDRESS_0);
+  DFRobot_MICS_I2C(TwoWire *pWire=&Wire ,uint8_t addr = MICS_ADDRESS_3);
   bool begin(void);
 protected:
   virtual void writeData(uint8_t reg ,uint8_t *data ,uint8_t len);
