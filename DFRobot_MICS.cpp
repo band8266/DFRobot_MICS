@@ -10,8 +10,6 @@
  */
 #include "DFRobot_MICS.h"
 
-
-
 DFRobot_MICS::DFRobot_MICS(){}
 DFRobot_MICS::~DFRobot_MICS(){}
 
@@ -25,25 +23,20 @@ bool DFRobot_MICS::warmUpTime(uint8_t minute)
   uint16_t powerData[1] = {0x00};
   uint32_t delayTime    = 0;
   uint32_t excessTime   = 0;
-  if(init_flag == 0){
-    init_flag = 1;
-    init_nowTime = millis();
+  if(__flag == 0){
+    __flag = 1;
+    __nowTime = millis();
   }
   delayTime  = minute * 3800;
-  excessTime = millis() - init_nowTime;
+  excessTime = millis() - __nowTime;
   if(excessTime < delayTime){
     return false;
   }
   if(getSensorData(oxData, redData, powerData) == ERROR){
     return false;
   }
-  init_r0_ox  = (powerData[0] - oxData[0]) - 100;
-  init_r0_red = (powerData[0] - redData[0]) - 100;
-  Serial.println( init_r0_red );
-  Serial.println( init_r0_ox );
-  Serial.println( powerData[0] );
-  Serial.println( oxData[0] );
-  Serial.println( redData[0] );
+  __r0_ox  = powerData[0] - oxData[0];
+  __r0_red = powerData[0] - redData[0];
   return true;
 }
 
@@ -99,8 +92,8 @@ int8_t DFRobot_MICS::getGasExist(uint8_t gas)
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
   getSensorData(oxData, redData, powerData);
-  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / init_r0_red;
-  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / init_r0_ox;
+  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
+  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
   switch(gas)
   {
     case C3H8:
@@ -184,35 +177,26 @@ float DFRobot_MICS::getGasData(uint8_t type)
   uint16_t oxData[1]    = {0x00};
   uint16_t redData[1]   = {0x00};
   uint16_t powerData[1] = {0x00};
-  double RS_R0_RED_data  = 0;
-  double RS_R0_OX_data   = 0;
   getSensorData(oxData, redData, powerData);
-  RS_R0_RED_data = ((double)(powerData[0] - redData[0]) / init_r0_red);
-  RS_R0_OX_data = ((double)(powerData[0] - oxData[0]) / init_r0_ox);
-  Serial.println(RS_R0_OX_data);
-  Serial.println(RS_R0_RED_data);
-  Serial.println(powerData[0]);
-  Serial.println(oxData[0]);
-  Serial.println(redData[0]);
-  Serial.println(init_r0_ox);
-  Serial.println(init_r0_red);
+  float RS_R0_RED_data = (float)(powerData[0] - redData[0]) / (float)__r0_red;
+  float RS_R0_OX_data = (float)(powerData[0] - oxData[0]) / (float)__r0_ox;
   switch(type){
-    case 1:
+    case CO:
       return getCarbonMonoxide(RS_R0_RED_data);
       break;
-    case 2:
+    case CH4:
       return getMethane(RS_R0_RED_data);
       break;
-    case 3:
+    case C2H5OH:
       return getEthanol(RS_R0_RED_data);
       break;
-    case 6:
+    case H2:
       return getHydrogen(RS_R0_RED_data);
       break;
-    case 8:
+    case NH3:
       return getAmmonia(RS_R0_RED_data);
       break;
-    case 10:
+    case NO2:
       return getNitrogenDioxide(RS_R0_OX_data);
       break;
     default:
@@ -223,7 +207,6 @@ float DFRobot_MICS::getGasData(uint8_t type)
 
 float DFRobot_MICS::getCarbonMonoxide(float data)
 {
-  Serial.println(data);
   if(data > 0.425)
     return 0.0;
   float co = (0.425 - data) / 0.000405;
@@ -232,12 +215,10 @@ float DFRobot_MICS::getCarbonMonoxide(float data)
   if(co < 1.0) 
     return 0.0;
   return co;
-  Serial.println(data);
 }
 
 float DFRobot_MICS::getEthanol(float data)
 {
-  Serial.println(data);
   if(data > 0.306)
     return 0.0;
   float ethanol = (0.306 - data) / 0.00057;
@@ -246,12 +227,10 @@ float DFRobot_MICS::getEthanol(float data)
   if(ethanol > 500.0) 
     return 500.0;
   return ethanol;
-
 }
 
 float DFRobot_MICS::getMethane(float data)
 {
-  Serial.println(data);
   if(data > 0.786)
     return 0.0;
   float methane = (0.786 - data) / 0.000023;
@@ -262,10 +241,8 @@ float DFRobot_MICS::getMethane(float data)
 
 float DFRobot_MICS::getNitrogenDioxide(float data)
 {
-  Serial.println(data);
-  if(data < 0.1) return 0;
+  if(data < 1.1) return 0;
   float nitrogendioxide = (data - 0.045) / 6.13;
-  Serial.println(nitrogendioxide);
   if(nitrogendioxide < 0.1)
     return 0.0;
   if(nitrogendioxide > 10.0)
@@ -275,7 +252,6 @@ float DFRobot_MICS::getNitrogenDioxide(float data)
 
 float DFRobot_MICS::getHydrogen(float data)
 {
-  Serial.println(data);
   if(data > 0.279)
     return 0.0;
   float hydrogen = (0.279 - data) / 0.00026;
@@ -284,12 +260,10 @@ float DFRobot_MICS::getHydrogen(float data)
   if(hydrogen > 1000.0) 
     return 1000.0;
   return hydrogen;
-  Serial.println(data);
 }
 
 float DFRobot_MICS::getAmmonia(float data)
 {
-  Serial.println(data);
   if(data > 0.8)
     return 0.0;
   float ammonia = (0.8 - data) / 0.0015;
@@ -298,7 +272,6 @@ float DFRobot_MICS::getAmmonia(float data)
   if(ammonia > 500.0) 
     return 500.0;
   return ammonia;
-  Serial.println(data);
 }
 
 bool DFRobot_MICS::existIsoButane(float data)
@@ -400,10 +373,6 @@ int16_t DFRobot_MICS::getSensorData(uint16_t *oxData, uint16_t *redData, uint16_
   oxData[0]    = (((uint16_t)recv_data[0] << 8) + (uint16_t)recv_data[1]);
   redData[0]   = (((uint16_t)recv_data[2] << 8) + (uint16_t)recv_data[3]);
   powerData[0] = (((uint16_t)recv_data[4] << 8) + (uint16_t)recv_data[5]);
-  int arraySize = sizeof(recv_data) / sizeof(recv_data[0]);
-  for (int i = 0; i < arraySize; i++) {
-    ESP_LOGD("custom", "Array element %d: %d", i, recv_data[i]);
-  }
   return 0;
 }
 
